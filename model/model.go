@@ -37,3 +37,12 @@ func Create[T any](row T) (*T, error) {
 	}
 	return &row, nil
 }
+
+func Update[T any](row T) (*T, error) {
+	tt := new(T) // just used to tell gorm what model we're using, kind of annying actually
+	err := DB.Model(tt).Updates(row).Error
+	if err != nil {
+		return nil, err
+	}
+	return &row, nil
+}
